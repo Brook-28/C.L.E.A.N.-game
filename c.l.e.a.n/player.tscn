@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dmcu4n2qos4rc"]
+
+[ext_resource type="Texture2D" uid="uid://o1hg78c6tbwd" path="res://assets/player/art/John_basic_standing.png" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://bntvniplctq3w" path="res://player.gd" id="1_onrkg"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
+radius = 2.0
+
+[node name="player" type="CharacterBody2D" unique_id=428859002]
+scale = Vector2(3, 3)
+script = ExtResource("1_onrkg")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=442813597]
+texture_filter = 1
+texture = ExtResource("1_4flbx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1678625928]
+shape = SubResource("CapsuleShape2D_onrkg")
