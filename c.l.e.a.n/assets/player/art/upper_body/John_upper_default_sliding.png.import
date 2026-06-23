@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://o1hg78c6tbwd"
-path="res://.godot/imported/John_basic_standing.png-d83dd351870e4126967c300e2e0eae34.ctex"
+uid="uid://brmfsbk1l2qi1"
+path="res://.godot/imported/John_upper_default_sliding.png-f9849c910c898937f9ed358ab6e378be.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/player/art/John_basic_standing.png"
-dest_files=["res://.godot/imported/John_basic_standing.png-d83dd351870e4126967c300e2e0eae34.ctex"]
+source_file="res://assets/player/art/upper_body/John_upper_default_sliding.png"
+dest_files=["res://.godot/imported/John_upper_default_sliding.png-f9849c910c898937f9ed358ab6e378be.ctex"]
 
 [params]
 

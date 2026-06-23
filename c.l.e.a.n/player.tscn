@@ -1,18 +1,112 @@
 [gd_scene format=3 uid="uid://dmcu4n2qos4rc"]
 
-[ext_resource type="Texture2D" uid="uid://o1hg78c6tbwd" path="res://assets/player/art/John_basic_standing.png" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://bntvniplctq3w" path="res://player.gd" id="1_onrkg"]
+[ext_resource type="Texture2D" uid="uid://b24bswtpttss1" path="res://assets/player/art/upper_body/John_upper_standing.png" id="2_i3pqv"]
+[ext_resource type="Texture2D" uid="uid://bt8gn0uepgari" path="res://assets/player/art/lower_body/John_lower_sliding.png" id="2_sweqy"]
+[ext_resource type="Texture2D" uid="uid://8ftfu1vp0f64" path="res://assets/player/art/lower_body/running/John_lower_running1.png" id="2_urp6f"]
+[ext_resource type="Texture2D" uid="uid://csvex1mqak8yd" path="res://assets/player/art/lower_body/running/John_lower_running2.png" id="3_bwjto"]
+[ext_resource type="Texture2D" uid="uid://db8w57ujq71hg" path="res://assets/player/art/lower_body/John_legs_standing.png" id="3_hqtel"]
+[ext_resource type="Texture2D" uid="uid://brmfsbk1l2qi1" path="res://assets/player/art/upper_body/John_upper_default_sliding.png" id="4_2hs0m"]
+[ext_resource type="Texture2D" uid="uid://xsl6ocgqatm7" path="res://assets/player/art/lower_body/running/John_lower_running3.png" id="4_606se"]
+[ext_resource type="Texture2D" uid="uid://ca2np0torn5s5" path="res://assets/player/art/lower_body/running/John_lower_running4.png" id="5_u1c27"]
+[ext_resource type="Texture2D" uid="uid://babgfodwir13j" path="res://assets/player/art/lower_body/running/John_lower_running5.png" id="6_op7ga"]
+[ext_resource type="Texture2D" uid="uid://dqarrubdafmmv" path="res://assets/player/art/lower_body/running/John_lower_running6.png" id="7_q13i1"]
+[ext_resource type="Texture2D" uid="uid://bhsdtcornp32k" path="res://assets/player/art/lower_body/running/John_lower_running7.png" id="8_pylmc"]
+[ext_resource type="Texture2D" uid="uid://b5w8fq5cjxlxi" path="res://assets/player/art/lower_body/running/John_lower_running8.png" id="9_pbfsw"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4flbx"]
+animations = [{
+"frames": [{
+"duration": 0.6,
+"texture": ExtResource("2_urp6f")
+}, {
+"duration": 0.6,
+"texture": ExtResource("3_bwjto")
+}, {
+"duration": 0.6,
+"texture": ExtResource("4_606se")
+}, {
+"duration": 0.6,
+"texture": ExtResource("5_u1c27")
+}, {
+"duration": 0.6,
+"texture": ExtResource("6_op7ga")
+}, {
+"duration": 0.6,
+"texture": ExtResource("7_q13i1")
+}, {
+"duration": 0.6,
+"texture": ExtResource("8_pylmc")
+}, {
+"duration": 0.6,
+"texture": ExtResource("9_pbfsw")
+}],
+"loop": true,
+"name": &"running",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_sweqy")
+}],
+"loop": true,
+"name": &"sliding",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_hqtel")
+}],
+"loop": true,
+"name": &"standing",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sweqy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_2hs0m")
+}],
+"loop": true,
+"name": &"sliding",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_i3pqv")
+}],
+"loop": true,
+"name": &"standing",
+"speed": 5.0
+}]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
 radius = 2.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i3pqv"]
+radius = 2.0
+height = 8.666667
 
 [node name="player" type="CharacterBody2D" unique_id=428859002]
 scale = Vector2(3, 3)
 script = ExtResource("1_onrkg")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=442813597]
+[node name="LowerBody" type="AnimatedSprite2D" parent="." unique_id=815531095]
 texture_filter = 1
-texture = ExtResource("1_4flbx")
+sprite_frames = SubResource("SpriteFrames_4flbx")
+animation = &"running"
+frame = 7
+frame_progress = 0.44877222
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1678625928]
+[node name="UpperBody" type="AnimatedSprite2D" parent="." unique_id=561156482]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_sweqy")
+animation = &"standing"
+
+[node name="StandingCollision" type="CollisionShape2D" parent="." unique_id=1678625928]
 shape = SubResource("CapsuleShape2D_onrkg")
+
+[node name="LowerCollision" type="CollisionShape2D" parent="." unique_id=463455282]
+shape = SubResource("CapsuleShape2D_i3pqv")
+disabled = true
