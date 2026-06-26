@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://bhsdtcornp32k" path="res://assets/player/art/lower_body/running/John_lower_running7.png" id="8_pylmc"]
 [ext_resource type="Texture2D" uid="uid://b5w8fq5cjxlxi" path="res://assets/player/art/lower_body/running/John_lower_running8.png" id="9_pbfsw"]
 [ext_resource type="Texture2D" uid="uid://bhfr8wbx2hl11" path="res://assets/player/art/lower_body/John_lower_slide_transition1.png" id="10_u1c27"]
+[ext_resource type="Texture2D" uid="uid://3wtytx2kg5hn" path="res://assets/player/art/lower_body/John_lower_slide_transition2.png" id="11_op7ga"]
 [ext_resource type="Texture2D" uid="uid://w1k38vekblu1" path="res://assets/player/art/upper_body/John_upper_slide_transition1.png" id="13_op7ga"]
 [ext_resource type="Texture2D" uid="uid://cn156ygnmsfsb" path="res://assets/player/art/upper_body/John_upper_slide_transition2.png" id="14_q13i1"]
 
@@ -49,10 +50,13 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 0.3,
 "texture": ExtResource("10_u1c27")
+}, {
+"duration": 0.3,
+"texture": ExtResource("11_op7ga")
 }],
-"loop": true,
+"loop": false,
 "name": &"slide_transition",
 "speed": 5.0
 }, {
@@ -76,13 +80,13 @@ animations = [{
 [sub_resource type="SpriteFrames" id="SpriteFrames_sweqy"]
 animations = [{
 "frames": [{
-"duration": 1.0,
+"duration": 0.3,
 "texture": ExtResource("13_op7ga")
 }, {
-"duration": 1.0,
+"duration": 0.3,
 "texture": ExtResource("14_q13i1")
 }],
-"loop": true,
+"loop": false,
 "name": &"slide_transition",
 "speed": 5.0
 }, {
@@ -117,16 +121,17 @@ script = ExtResource("1_onrkg")
 [node name="LowerBody" type="AnimatedSprite2D" parent="." unique_id=815531095]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_4flbx")
-animation = &"standing"
+animation = &"slide_transition"
 
 [node name="UpperBody" type="AnimatedSprite2D" parent="." unique_id=561156482]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_sweqy")
-animation = &"standing"
+animation = &"slide_transition"
 
 [node name="StandingCollision" type="CollisionShape2D" parent="." unique_id=1678625928]
 shape = SubResource("CapsuleShape2D_onrkg")
 
 [node name="LowerCollision" type="CollisionShape2D" parent="." unique_id=463455282]
+position = Vector2(0, 10.5)
 shape = SubResource("CapsuleShape2D_i3pqv")
 disabled = true

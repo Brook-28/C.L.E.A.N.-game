@@ -9,7 +9,8 @@ const SLIDE_SPEED = 650
 
 # GENERAL
 func _process(_delta: float) -> void:
-	update_visuals()
+	if not is_sliding:
+		update_visuals()
 
 
 # MOVEMENT
@@ -59,13 +60,22 @@ func slide():
 		
 	# changing basic variables	
 	is_sliding = true
+	velocity.x = facing * SLIDE_SPEED
 	$StandingCollision.disabled = true
 	$LowerCollision.disabled = false
+	
+	$UpperBody.play("slide_transition")
+	$LowerBody.play("slide_transition")
+	await $LowerBody.animation_finished
+	
+	$LowerBody.position.y = 10.5
+	$UpperBody.position.y = 10.5
+	
 	$LowerBody.play("sliding")
 	$UpperBody.play("sliding")
 	
 	# movement
-	velocity.x = facing * SLIDE_SPEED
+	#velocity.x = facing * SLIDE_SPEED
 	
 	await get_tree().create_timer(0.5).timeout
 	
@@ -73,6 +83,8 @@ func slide():
 	is_sliding = false
 	$StandingCollision.disabled = false
 	$LowerCollision.disabled = true
+	$LowerBody.position.y = 0
+	$UpperBody.position.y = 0
 	$LowerBody.play("standing")
 	$UpperBody.play("standing")
 	
