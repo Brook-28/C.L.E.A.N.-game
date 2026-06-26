@@ -13,6 +13,9 @@
 [ext_resource type="Texture2D" uid="uid://dqarrubdafmmv" path="res://assets/player/art/lower_body/running/John_lower_running6.png" id="7_q13i1"]
 [ext_resource type="Texture2D" uid="uid://bhsdtcornp32k" path="res://assets/player/art/lower_body/running/John_lower_running7.png" id="8_pylmc"]
 [ext_resource type="Texture2D" uid="uid://b5w8fq5cjxlxi" path="res://assets/player/art/lower_body/running/John_lower_running8.png" id="9_pbfsw"]
+[ext_resource type="Texture2D" uid="uid://bhfr8wbx2hl11" path="res://assets/player/art/lower_body/John_lower_slide_transition1.png" id="10_u1c27"]
+[ext_resource type="Texture2D" uid="uid://w1k38vekblu1" path="res://assets/player/art/upper_body/John_upper_slide_transition1.png" id="13_op7ga"]
+[ext_resource type="Texture2D" uid="uid://cn156ygnmsfsb" path="res://assets/player/art/upper_body/John_upper_slide_transition2.png" id="14_q13i1"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4flbx"]
 animations = [{
@@ -47,6 +50,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("10_u1c27")
+}],
+"loop": true,
+"name": &"slide_transition",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("2_sweqy")
 }],
 "loop": true,
@@ -64,6 +75,17 @@ animations = [{
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_sweqy"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_op7ga")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_q13i1")
+}],
+"loop": true,
+"name": &"slide_transition",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("4_2hs0m")
@@ -95,9 +117,7 @@ script = ExtResource("1_onrkg")
 [node name="LowerBody" type="AnimatedSprite2D" parent="." unique_id=815531095]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_4flbx")
-animation = &"running"
-frame = 7
-frame_progress = 0.44877222
+animation = &"standing"
 
 [node name="UpperBody" type="AnimatedSprite2D" parent="." unique_id=561156482]
 texture_filter = 1

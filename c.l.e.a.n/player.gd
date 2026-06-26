@@ -4,10 +4,11 @@ var facing = 1
 var is_sliding
 const SPEED = 500.0
 const JUMP_VELOCITY = -400.0
-const SLIDE_SPEED = 750
+const SLIDE_SPEED = 650
+
 
 # GENERAL
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	update_visuals()
 
 
@@ -16,7 +17,6 @@ func _physics_process(delta: float) -> void:
 	var direction = Input.get_axis("move_left", "move_right")
 	# direction
 	if direction != 0:
-		print(facing)
 		facing = direction
 	
 	
@@ -32,9 +32,15 @@ func _physics_process(delta: float) -> void:
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	
 	if direction and not is_sliding:
-		velocity.x = direction * SPEED
+		if is_on_floor():
+			velocity.x = move_toward(velocity.x,SPEED * direction,50)
+		elif not is_on_floor():
+			velocity.x = move_toward(velocity.x,SPEED * direction,10)
 	elif not is_sliding:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		if is_on_floor():
+			velocity.x = move_toward(velocity.x, 0, delta * 3125)
+		elif not is_on_floor():
+			velocity.x = move_toward(velocity.x, 0, delta * 125)
 	
 	# Sliding
 	if Input.is_action_just_pressed("slide") and is_on_floor():
