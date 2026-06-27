@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://dmcu4n2qos4rc" path="res://player.tscn" id="1_8uh7m"]
 [ext_resource type="Texture2D" uid="uid://klphntelesbb" path="res://assets/temporary_assets/grass.png" id="1_37kl0"]
-[ext_resource type="PackedScene" uid="uid://bj2ravctki4u8" path="res://revolver.tscn" id="3_6uqi0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8uh7m"]
 size = Vector2(1161, 20)
@@ -37,6 +36,3 @@ texture = ExtResource("1_37kl0")
 
 [node name="player" parent="." unique_id=428859002 instance=ExtResource("1_8uh7m")]
 position = Vector2(543, 553)
-
-[node name="revolver" parent="." unique_id=420264989 instance=ExtResource("3_6uqi0")]
-position = Vector2(561, 531)

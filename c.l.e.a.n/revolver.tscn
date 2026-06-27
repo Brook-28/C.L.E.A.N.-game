@@ -78,8 +78,6 @@ animations = [{
 }]
 
 [node name="revolver" type="Node2D" unique_id=420264989]
-position = Vector2(145, 110)
-scale = Vector2(3, 3)
 script = ExtResource("1_wulko")
 metadata/_edit_group_ = true
 
