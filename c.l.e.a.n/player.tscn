@@ -121,12 +121,12 @@ script = ExtResource("1_onrkg")
 [node name="LowerBody" type="AnimatedSprite2D" parent="." unique_id=815531095]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_4flbx")
-animation = &"slide_transition"
+animation = &"standing"
 
 [node name="UpperBody" type="AnimatedSprite2D" parent="." unique_id=561156482]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_sweqy")
-animation = &"slide_transition"
+animation = &"standing"
 
 [node name="StandingCollision" type="CollisionShape2D" parent="." unique_id=1678625928]
 shape = SubResource("CapsuleShape2D_onrkg")

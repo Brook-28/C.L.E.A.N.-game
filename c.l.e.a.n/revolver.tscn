@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://bj2ravctki4u8"]
+
+[ext_resource type="Script" uid="uid://bf5ve6bvgahui" path="res://revolver.gd" id="1_wulko"]
+[ext_resource type="Texture2D" uid="uid://i4buufm4rq8s" path="res://assets/player/art/weapons/revolver/John_revolver_down.png" id="2_whf45"]
+[ext_resource type="Texture2D" uid="uid://bgnjj6xko7xgi" path="res://assets/player/art/weapons/revolver/John_revolver_down_diaganal_high.png" id="3_yha7w"]
+[ext_resource type="Texture2D" uid="uid://cjs55l8nkm6db" path="res://assets/player/art/weapons/revolver/John_revolver_down_diaganal_low.png" id="4_c4m6c"]
+[ext_resource type="Texture2D" uid="uid://cfb1q66cnxps1" path="res://assets/player/art/weapons/revolver/John_revolver_straight.png" id="5_4icyu"]
+[ext_resource type="Texture2D" uid="uid://ccnvtrko624sf" path="res://assets/player/art/weapons/revolver/John_revolver_up_diaganal_high.png" id="6_ftidg"]
+[ext_resource type="Texture2D" uid="uid://cdrfxddkq5qh" path="res://assets/player/art/weapons/revolver/John_revolver_up_diaganal_low.png" id="7_4jhvw"]
+[ext_resource type="Texture2D" uid="uid://dhvjdgxyv6y84" path="res://assets/player/art/weapons/revolver/John_revolver_up_diaganal_mid.png" id="8_v1vv7"]
+[ext_resource type="Texture2D" uid="uid://db37nsd3vwwnk" path="res://assets/player/art/weapons/revolver/John_revolver_up.png" id="9_2c2cu"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wulko"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_whf45")
+}],
+"loop": true,
+"name": &"down_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_yha7w")
+}],
+"loop": true,
+"name": &"down_high",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_c4m6c")
+}],
+"loop": true,
+"name": &"down_low",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_4icyu")
+}],
+"loop": true,
+"name": &"straight",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_ftidg")
+}],
+"loop": true,
+"name": &"up_high",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_4jhvw")
+}],
+"loop": true,
+"name": &"up_low",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_v1vv7")
+}],
+"loop": true,
+"name": &"up_middle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_2c2cu")
+}],
+"loop": true,
+"name": &"up_up",
+"speed": 5.0
+}]
+
+[node name="revolver" type="Node2D" unique_id=420264989]
+position = Vector2(145, 110)
+scale = Vector2(3, 3)
+script = ExtResource("1_wulko")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=771827536]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_wulko")
+animation = &"straight"
