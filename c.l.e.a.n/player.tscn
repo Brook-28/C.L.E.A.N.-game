@@ -118,24 +118,31 @@ height = 8.666667
 [node name="player" type="CharacterBody2D" unique_id=428859002]
 scale = Vector2(3, 3)
 script = ExtResource("1_onrkg")
+metadata/_edit_group_ = true
 
 [node name="LowerBody" type="AnimatedSprite2D" parent="." unique_id=815531095]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_4flbx")
 animation = &"standing"
+offset = Vector2(0.5, 0)
 
 [node name="UpperBody" type="AnimatedSprite2D" parent="." unique_id=561156482]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_sweqy")
 animation = &"standing"
+offset = Vector2(0.5, 0)
 
 [node name="StandingCollision" type="CollisionShape2D" parent="." unique_id=1678625928]
+position = Vector2(0.5, 0)
 shape = SubResource("CapsuleShape2D_onrkg")
 
 [node name="LowerCollision" type="CollisionShape2D" parent="." unique_id=463455282]
-position = Vector2(0, 10.5)
+position = Vector2(0.5, 10.5)
 shape = SubResource("CapsuleShape2D_i3pqv")
 disabled = true
 
-[node name="revolver" parent="." unique_id=420264989 instance=ExtResource("18_q13i1")]
-position = Vector2(6, -7.666667)
+[node name="arms" type="Node2D" parent="." unique_id=1582351302]
+position = Vector2(0.5, 0)
+
+[node name="revolver" parent="arms" unique_id=420264989 instance=ExtResource("18_q13i1")]
+position = Vector2(0, -7.5)

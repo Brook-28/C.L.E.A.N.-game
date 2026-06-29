@@ -79,9 +79,9 @@ animations = [{
 
 [node name="revolver" type="Node2D" unique_id=420264989]
 script = ExtResource("1_wulko")
-metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=771827536]
 texture_filter = 1
+position = Vector2(6, 0)
 sprite_frames = SubResource("SpriteFrames_wulko")
 animation = &"straight"

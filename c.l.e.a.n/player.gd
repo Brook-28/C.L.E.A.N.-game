@@ -60,10 +60,16 @@ func slide():
 		
 	# changing basic variables	
 	is_sliding = true
+	$arms.hide()
 	velocity.x = facing * SLIDE_SPEED
 	$StandingCollision.disabled = true
 	$LowerCollision.disabled = false
 	
+	if $LowerBody.flip_h == false and $UpperBody.flip_h == true:
+		$UpperBody.flip_h = false
+	elif $LowerBody.flip_h == true and $UpperBody.flip_h == false:
+		$UpperBody.flip_h = true
+
 	$UpperBody.play("slide_transition")
 	$LowerBody.play("slide_transition")
 	await $LowerBody.animation_finished
@@ -87,14 +93,28 @@ func slide():
 	$UpperBody.position.y = 0
 	$LowerBody.play("standing")
 	$UpperBody.play("standing")
-	
+	$arms.show()
 	
 
 
 # VISUAL
 func update_visuals():
+	if get_global_mouse_position().x < global_position.x:
+		$UpperBody.flip_h = true
+		if is_sliding:
+			$UpperBody.flip_h = facing < 0
+			$UpperBody.position.x = 0
+	else:
+		$UpperBody.flip_h = false
+	
 	$LowerBody.flip_h = facing < 0
-	$UpperBody.flip_h = facing < 0
+	
+	if $LowerBody.flip_h == false and $UpperBody.flip_h == true:
+		$LowerBody.position.x = 1
+	elif $LowerBody.flip_h == true and $UpperBody.flip_h == false:
+		$LowerBody.position.x = -1
+	else:
+		$LowerBody.position.x = 0
 	
 	if velocity == Vector2.ZERO:
 		$LowerBody.play("standing")
