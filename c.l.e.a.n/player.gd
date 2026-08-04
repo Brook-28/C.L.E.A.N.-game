@@ -30,7 +30,6 @@ func _physics_process(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY
 
 	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	
 	if direction and not is_sliding:
 		if is_on_floor():
@@ -47,10 +46,6 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("slide") and is_on_floor():
 		slide()
 	
-	
-	
-	
-	
 	move_and_slide()
 	
 	
@@ -58,7 +53,7 @@ func slide():
 	if is_sliding:
 		return
 		
-	# changing basic variables	
+	# changing variables	
 	is_sliding = true
 	$arms.hide()
 	velocity.x = facing * SLIDE_SPEED
@@ -99,6 +94,7 @@ func slide():
 
 # VISUAL
 func update_visuals():
+	#upper body facing direction
 	if get_global_mouse_position().x < global_position.x:
 		$UpperBody.flip_h = true
 		if is_sliding:
@@ -109,6 +105,7 @@ func update_visuals():
 	
 	$LowerBody.flip_h = facing < 0
 	
+	# lower body pixel correction
 	if $LowerBody.flip_h == false and $UpperBody.flip_h == true:
 		$LowerBody.position.x = 1
 	elif $LowerBody.flip_h == true and $UpperBody.flip_h == false:
@@ -116,6 +113,7 @@ func update_visuals():
 	else:
 		$LowerBody.position.x = 0
 	
+	# lower body animation
 	if velocity == Vector2.ZERO:
 		$LowerBody.play("standing")
 	if velocity.x != 0 and not is_sliding and is_on_floor():
