@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://bdqbpsou3liv2"]
+
+[ext_resource type="Texture2D" uid="uid://bunl1rjoejgou" path="res://weapons/arms/arms_art/John_arms_basic.png" id="1_js2iy"]
+[ext_resource type="Script" uid="uid://2bldn0utku7x" path="res://weapons/arms/arms.gd" id="1_va3ct"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_va3ct"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_js2iy")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="arms" type="Node2D" unique_id=793386903]
+script = ExtResource("1_va3ct")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=208200064]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_va3ct")
