@@ -17,7 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://w1k38vekblu1" path="res://player/art/upper_body/John_upper_slide_transition1.png" id="13_op7ga"]
 [ext_resource type="Texture2D" uid="uid://cn156ygnmsfsb" path="res://player/art/upper_body/John_upper_slide_transition2.png" id="14_q13i1"]
 [ext_resource type="Texture2D" uid="uid://csq6v8ery0d62" path="res://player/art/upper_body/John_upper_basic.png" id="17_q13i1"]
-[ext_resource type="Script" uid="uid://65vouo2v57me" path="res://weapon_manager.gd" id="18_e7oew"]
+[ext_resource type="Script" uid="uid://65vouo2v57me" path="res://weapons/weapon_manager.gd" id="18_e7oew"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4flbx"]
 animations = [{

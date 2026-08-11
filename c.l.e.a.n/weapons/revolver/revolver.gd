@@ -3,11 +3,15 @@ extends Weapon
 
 @onready var sprite = $AnimatedSprite2D
 
+var bullet = preload("res://weapons/bullets/revolver_bullet/revolver_bullet.tscn")
+
+const BARREL_LENGTH = 5
 
 func _process(_delta: float) -> void:
 	super._process(_delta)
 	weapon_direction()
-	
+	if Input.is_action_just_pressed("fire"):
+		fire()
 
 func weapon_direction():
 	
@@ -41,3 +45,10 @@ func weapon_direction():
 		sprite.play("down_low")
 	else:
 		sprite.play("down_down")
+
+
+func fire():
+	var spawn_pos = global_position+ dir.normalized() * BARREL_LENGTH
+	bullet.global_position = spawn_pos
+	get_tree().current_scene.add_child(bullet)
+	print("bang")
