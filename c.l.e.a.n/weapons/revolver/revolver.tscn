@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cdrfxddkq5qh" path="res://weapons/revolver/revolver_art/John_revolver_up_diaganal_low.png" id="7_4jhvw"]
 [ext_resource type="Texture2D" uid="uid://dhvjdgxyv6y84" path="res://weapons/revolver/revolver_art/John_revolver_up_diaganal_mid.png" id="8_v1vv7"]
 [ext_resource type="Texture2D" uid="uid://db37nsd3vwwnk" path="res://weapons/revolver/revolver_art/John_revolver_up.png" id="9_2c2cu"]
+[ext_resource type="AudioStream" uid="uid://b7aeip1isl4fy" path="res://weapons/revolver/revolver_shot_sound.wav" id="10_dmfqf"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wulko"]
 animations = [{
@@ -86,3 +87,6 @@ texture_filter = 1
 position = Vector2(6, 0)
 sprite_frames = SubResource("SpriteFrames_wulko")
 animation = &"straight"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1112036013]
+stream = ExtResource("10_dmfqf")

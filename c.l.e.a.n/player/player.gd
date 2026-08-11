@@ -56,6 +56,7 @@ func slide():
 	# changing variables	
 	is_sliding = true
 	$arms.hide()
+	$arms.process_mode =Node.PROCESS_MODE_DISABLED
 	velocity.x = facing * SLIDE_SPEED
 	$StandingCollision.disabled = true
 	$LowerCollision.disabled = false
@@ -88,6 +89,7 @@ func slide():
 	$UpperBody.position.y = 0
 	$LowerBody.play("standing")
 	$UpperBody.play("standing")
+	$arms.process_mode =Node.PROCESS_MODE_INHERIT
 	$arms.show()
 	
 

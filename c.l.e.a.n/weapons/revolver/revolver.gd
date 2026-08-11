@@ -5,7 +5,8 @@ extends Weapon
 
 var bullet = preload("res://weapons/bullets/revolver_bullet/revolver_bullet.tscn")
 
-const BARREL_LENGTH = 5
+
+const BARREL_LENGTH = 45
 
 func _process(_delta: float) -> void:
 	super._process(_delta)
@@ -48,7 +49,10 @@ func weapon_direction():
 
 
 func fire():
+	$AudioStreamPlayer2D.play()
+	var instance = bullet.instantiate()
 	var spawn_pos = global_position+ dir.normalized() * BARREL_LENGTH
-	bullet.global_position = spawn_pos
-	get_tree().current_scene.add_child(bullet)
-	print("bang")
+	instance.global_position = spawn_pos
+	instance.direction = dir
+	get_tree().current_scene.add_child(instance)
+	
