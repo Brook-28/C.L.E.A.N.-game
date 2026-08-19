@@ -31,8 +31,8 @@ func _process(_delta: float) -> void:
 	
 	if Input.is_action_just_pressed("fists_select") and current_weapon != WeaponType.ARMS:
 		switch_weapon(WeaponType.ARMS)
-		print(1)
+		
 		
 	if Input.is_action_just_pressed("revolver_select") and current_weapon != WeaponType.REVOLVER:
 		switch_weapon(WeaponType.REVOLVER)
-		print(2)
+		

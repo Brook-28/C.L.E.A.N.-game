@@ -1,9 +1,9 @@
 extends Area2D
 
-const SPEED = 4000
+const SPEED = 3000
 var direction: Vector2
-const RANGE = 20
-var travelled = 0
+const RANGE = 1000
+var travelled: Vector2
 var collided = false
 
 func _physics_process(delta: float) -> void:
@@ -12,11 +12,12 @@ func _physics_process(delta: float) -> void:
 		rotation = direction.angle()
 
 	
-	if travelled < RANGE:
+	if travelled.length() < RANGE:
 		position += direction.normalized() * SPEED * delta
-		travelled += 1
+		travelled += direction.normalized() * SPEED * delta
 		
-	if travelled == RANGE or collided:
+		
+	if travelled.length() >= RANGE or collided:
 		queue_free()
 #func on hit():
 # collided = true

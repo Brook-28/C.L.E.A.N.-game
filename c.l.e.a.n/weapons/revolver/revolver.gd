@@ -6,7 +6,7 @@ extends Weapon
 var bullet = preload("res://weapons/bullets/revolver_bullet/revolver_bullet.tscn")
 
 
-const BARREL_LENGTH = 45
+const BARREL_LENGTH = 55
 
 func _process(_delta: float) -> void:
 	super._process(_delta)

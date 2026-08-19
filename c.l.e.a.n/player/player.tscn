@@ -144,3 +144,5 @@ disabled = true
 [node name="arms" type="Node2D" parent="." unique_id=1582351302]
 position = Vector2(0.5, 0)
 script = ExtResource("18_e7oew")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=401729916]

@@ -89,4 +89,6 @@ sprite_frames = SubResource("SpriteFrames_wulko")
 animation = &"straight"
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1112036013]
+position = Vector2(0, 0.5)
 stream = ExtResource("10_dmfqf")
+volume_db = -2.039
