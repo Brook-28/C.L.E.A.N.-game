@@ -2,20 +2,56 @@ extends CharacterBody2D
 
 var facing = 1
 var is_sliding
-const SPEED = 500.0
+const SPEED = 600.0
 const JUMP_VELOCITY = -400.0
-const SLIDE_SPEED = 650
+const SLIDE_SPEED = 850
+var direction = 0
+var speed
+var normalized_speed
+const MAX_SPEED = 850
 
 
 # GENERAL
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	
+	# variables for camera zoom
+	speed = velocity.length()
+	normalized_speed = speed / MAX_SPEED
+	normalized_speed = clamp(normalized_speed, 0, 1)
+	
+	# variables for camera y position offset
+	var mouse_pos = get_local_mouse_position().y
+	var mouseY = clamp(mouse_pos, -50, 50)
+	mouseY = float(mouseY)
+	
 	if not is_sliding:
 		update_visuals()
-
+		
+	# camera
+	
+	# camera x positoin logic
+	if direction > 0:
+		$Camera2D.offset.x = lerp($Camera2D.offset.x, 175.0, 5.0 * delta)
+	elif direction < 0:
+		$Camera2D.offset.x = lerp($Camera2D.offset.x, -175.0, 5.0 * delta)
+	else:
+		$Camera2D.offset.x = lerp($Camera2D.offset.x, 0.0, 2.0 * delta)
+		
+	# camera y position logic	
+	if mouseY < 0:
+		$Camera2D.offset.y = lerp($Camera2D.offset.y, mouseY, 5.0 * delta)
+	elif mouseY > 0:
+		$Camera2D.offset.y = lerp($Camera2D.offset.y, mouseY, 5.0 * delta)
+	else:
+		pass
+	
+	# camera speed dependant zoom logic
+	var target_zoom = Vector2(1, 1).lerp(Vector2(0.8, 0.8), normalized_speed)
+	$Camera2D.zoom = $Camera2D.zoom.lerp(target_zoom, 5 * delta)
 
 # MOVEMENT
 func _physics_process(delta: float) -> void:
-	var direction = Input.get_axis("move_left", "move_right")
+	direction = Input.get_axis("move_left", "move_right")
 	# direction
 	if direction != 0:
 		facing = direction
