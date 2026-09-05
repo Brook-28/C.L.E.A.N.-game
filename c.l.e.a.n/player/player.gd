@@ -2,13 +2,13 @@ extends CharacterBody2D
 
 var facing = 1
 var is_sliding
-const SPEED = 600.0
+const SPEED = 700.0
 const JUMP_VELOCITY = -400.0
-const SLIDE_SPEED = 850
+const SLIDE_SPEED = 900
 var direction = 0
 var speed
 var normalized_speed
-const MAX_SPEED = 850
+const MAX_SPEED = 900
 
 
 # GENERAL
@@ -24,8 +24,8 @@ func _process(delta: float) -> void:
 	var mouseY = clamp(mouse_pos, -50, 50)
 	mouseY = float(mouseY)
 	
-	if not is_sliding:
-		update_visuals()
+	#if not is_sliding:
+	update_visuals()
 		
 	# camera
 	
@@ -69,18 +69,25 @@ func _physics_process(delta: float) -> void:
 	
 	if direction and not is_sliding:
 		if is_on_floor():
-			velocity.x = move_toward(velocity.x,SPEED * direction,50)
+			velocity.x = move_toward(velocity.x,SPEED * direction, 1500 * delta)
 		elif not is_on_floor():
-			velocity.x = move_toward(velocity.x,SPEED * direction,10)
+			velocity.x = move_toward(velocity.x,SPEED * direction, 600 *delta)
 	elif not is_sliding:
 		if is_on_floor():
-			velocity.x = move_toward(velocity.x, 0, delta * 3125)
+			velocity.x = move_toward(velocity.x, 0, delta * 7125)
 		elif not is_on_floor():
 			velocity.x = move_toward(velocity.x, 0, delta * 125)
 	
+	if is_sliding:
+		velocity.x = move_toward(velocity.x,SPEED * direction,600 * delta)
+		
 	# Sliding
 	if Input.is_action_just_pressed("slide") and is_on_floor():
 		slide()
+	
+	if not Input.is_action_pressed("slide") and is_sliding:
+		end_slide()
+	
 	
 	move_and_slide()
 	
@@ -91,8 +98,8 @@ func slide():
 		
 	# changing variables	
 	is_sliding = true
-	$arms.hide()
-	$arms.process_mode =Node.PROCESS_MODE_DISABLED
+	
+	
 	velocity.x = facing * SLIDE_SPEED
 	$StandingCollision.disabled = true
 	$LowerCollision.disabled = false
@@ -102,34 +109,28 @@ func slide():
 	elif $LowerBody.flip_h == true and $UpperBody.flip_h == false:
 		$UpperBody.flip_h = true
 
-	$UpperBody.play("slide_transition")
-	$LowerBody.play("slide_transition")
-	await $LowerBody.animation_finished
 	
-	$LowerBody.position.y = 10.5
 	$UpperBody.position.y = 10.5
+	$arms.position = Vector2(facing * -4, 13)
+	$LowerBody.position.y = 10.5
 	
 	$LowerBody.play("sliding")
-	$UpperBody.play("sliding")
 	
-	# movement
-	#velocity.x = facing * SLIDE_SPEED
 	
-	await get_tree().create_timer(0.5).timeout
 	
-	# changing back basic variables	
+	
+func end_slide():
 	is_sliding = false
 	$StandingCollision.disabled = false
 	$LowerCollision.disabled = true
 	$LowerBody.position.y = 0
+	$arms.position = Vector2(0.5, 0)
 	$UpperBody.position.y = 0
 	$LowerBody.play("standing")
-	$UpperBody.play("standing")
-	$arms.process_mode =Node.PROCESS_MODE_INHERIT
-	$arms.show()
 	
-
-
+	
+	
+	
 # VISUAL
 func update_visuals():
 	#upper body facing direction
@@ -152,8 +153,16 @@ func update_visuals():
 		$LowerBody.position.x = 0
 	
 	# lower body animation
-	if velocity == Vector2.ZERO:
+	if velocity == Vector2.ZERO and not is_sliding:
 		$LowerBody.play("standing")
 	if velocity.x != 0 and not is_sliding and is_on_floor():
 		$LowerBody.play("running")
 	pass
+	
+	
+	# sliding visuals
+	
+	if is_sliding:
+		$UpperBody.rotation_degrees = -40 * facing
+	else:
+		$UpperBody.rotation_degrees = 0
