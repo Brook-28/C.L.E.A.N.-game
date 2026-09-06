@@ -2,14 +2,17 @@ extends CharacterBody2D
 
 var facing = 1
 var is_sliding
-const SPEED = 700.0
+const SPEED = 600.0
 const JUMP_VELOCITY = -400.0
-const SLIDE_SPEED = 900
+const SLIDE_SPEED = 1500
 var direction = 0
 var speed
 var normalized_speed
-const MAX_SPEED = 900
-
+const MAX_SPEED = 1500
+var jump_buffer_time = 0
+const JUMP_BUFFER_DURATION = 0.15
+var coyote_time = 0.0
+const COYOTE_DURATION = 0.12
 
 # GENERAL
 func _process(delta: float) -> void:
@@ -31,27 +34,29 @@ func _process(delta: float) -> void:
 	
 	# camera x positoin logic
 	if direction > 0:
-		$Camera2D.offset.x = lerp($Camera2D.offset.x, 175.0, 5.0 * delta)
+		$Camera2D.offset.x = lerp($Camera2D.offset.x, 175.0, 3.0 * delta)
 	elif direction < 0:
-		$Camera2D.offset.x = lerp($Camera2D.offset.x, -175.0, 5.0 * delta)
+		$Camera2D.offset.x = lerp($Camera2D.offset.x, -175.0, 3.0 * delta)
 	else:
 		$Camera2D.offset.x = lerp($Camera2D.offset.x, 0.0, 2.0 * delta)
 		
 	# camera y position logic	
 	if mouseY < 0:
-		$Camera2D.offset.y = lerp($Camera2D.offset.y, mouseY, 5.0 * delta)
+		$Camera2D.offset.y = lerp($Camera2D.offset.y, mouseY, 3.0 * delta)
 	elif mouseY > 0:
-		$Camera2D.offset.y = lerp($Camera2D.offset.y, mouseY, 5.0 * delta)
+		$Camera2D.offset.y = lerp($Camera2D.offset.y, mouseY, 3.0 * delta)
 	else:
 		pass
 	
 	# camera speed dependant zoom logic
 	var target_zoom = Vector2(1, 1).lerp(Vector2(0.8, 0.8), normalized_speed)
-	$Camera2D.zoom = $Camera2D.zoom.lerp(target_zoom, 5 * delta)
+	$Camera2D.zoom = $Camera2D.zoom.lerp(target_zoom, 10 * delta)
 
 # MOVEMENT
 func _physics_process(delta: float) -> void:
-	direction = Input.get_axis("move_left", "move_right")
+	
+	if not is_sliding:
+		direction = Input.get_axis("move_left", "move_right")
 	# direction
 	if direction != 0:
 		facing = direction
@@ -62,24 +67,46 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 
 	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+	if Input.is_action_just_pressed("jump"):
+		jump_buffer_time = JUMP_BUFFER_DURATION
+	else:
+		jump_buffer_time -= delta
 
+	if is_on_floor():
+		coyote_time = COYOTE_DURATION
+	else:
+		coyote_time -= delta
+
+	if jump_buffer_time > 0 and coyote_time > 0:
+		if is_sliding:
+			velocity.y = JUMP_VELOCITY
+			velocity.x += 100 * direction
+		else:
+			velocity.y = JUMP_VELOCITY
+			
+			
 	# Get the input direction and handle the movement/deceleration.
 	
 	if direction and not is_sliding:
+		#acceleration
 		if is_on_floor():
 			velocity.x = move_toward(velocity.x,SPEED * direction, 1500 * delta)
 		elif not is_on_floor():
-			velocity.x = move_toward(velocity.x,SPEED * direction, 600 *delta)
+			velocity.x = move_toward(velocity.x,SPEED * direction, 1000 *delta)
+	# deceleration
 	elif not is_sliding:
 		if is_on_floor():
-			velocity.x = move_toward(velocity.x, 0, delta * 7125)
+			velocity.x = move_toward(velocity.x, 0, delta * 2500)
 		elif not is_on_floor():
 			velocity.x = move_toward(velocity.x, 0, delta * 125)
 	
-	if is_sliding:
-		velocity.x = move_toward(velocity.x,SPEED * direction,600 * delta)
+	
+	#stops sliding
+	if is_sliding and is_on_floor():
+		velocity.x = move_toward(velocity.x,0,1400 * delta)
+	else:
+		velocity.x = move_toward(velocity.x,0,400 * delta)
+		
 		
 	# Sliding
 	if Input.is_action_just_pressed("slide") and is_on_floor():
@@ -88,6 +115,24 @@ func _physics_process(delta: float) -> void:
 	if not Input.is_action_pressed("slide") and is_sliding:
 		end_slide()
 	
+	
+	
+	# vertical correction
+	
+	$LowRay.target_position.x = 3 * facing
+	$HighRay.target_position.x = 3 * facing
+	
+	if $LowRay.is_colliding():
+		
+		var hit_x = $LowRay.get_collision_point().x
+		var is_in_front = sign(hit_x - global_position.x) == sign(direction)
+		
+		var normal = $LowRay.get_collision_normal()
+		var surface_angle = abs(rad_to_deg(normal.angle_to(Vector2.UP)))
+		
+		if is_in_front and not $HighRay.is_colliding() and surface_angle > rad_to_deg(floor_max_angle):
+			position.y += -6
+			
 	
 	move_and_slide()
 	
@@ -144,6 +189,8 @@ func update_visuals():
 	
 	$LowerBody.flip_h = facing < 0
 	
+		
+		
 	# lower body pixel correction
 	if $LowerBody.flip_h == false and $UpperBody.flip_h == true:
 		$LowerBody.position.x = 1

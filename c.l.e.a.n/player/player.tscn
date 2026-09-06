@@ -110,6 +110,7 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
 radius = 2.0
+height = 31.333334
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i3pqv"]
 radius = 2.0
@@ -133,11 +134,11 @@ animation = &"standing"
 offset = Vector2(0.5, 0)
 
 [node name="StandingCollision" type="CollisionShape2D" parent="." unique_id=1678625928]
-position = Vector2(0.5, 0)
 shape = SubResource("CapsuleShape2D_onrkg")
+debug_color = Color(0.30581337, 0.49478316, 1, 0.41960785)
 
 [node name="LowerCollision" type="CollisionShape2D" parent="." unique_id=463455282]
-position = Vector2(0.5, 10.5)
+position = Vector2(0, 11.333334)
 shape = SubResource("CapsuleShape2D_i3pqv")
 disabled = true
 
@@ -146,3 +147,11 @@ position = Vector2(0.5, 0)
 script = ExtResource("18_e7oew")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=401729916]
+
+[node name="HighRay" type="RayCast2D" parent="." unique_id=379924004]
+position = Vector2(0, 10.833333)
+target_position = Vector2(3, 0)
+
+[node name="LowRay" type="RayCast2D" parent="." unique_id=899856512]
+position = Vector2(0, 15.666667)
+target_position = Vector2(3, 0)
